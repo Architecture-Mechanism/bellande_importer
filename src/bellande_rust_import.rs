@@ -17,7 +17,7 @@ use proc_macro2::TokenStream;
 use quote::ToTokens;
 use std::collections::HashMap;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use syn::{parse_file, Item};
 
 pub struct Module {
@@ -93,9 +93,11 @@ impl Importer {
                                 format!("impl_{}", trait_path.segments.last().unwrap().ident),
                                 i.to_token_stream(),
                             );
-                        } else if let Some(t) = &i.self_ty {
-                            symbols
-                                .insert(format!("impl_{}", quote::quote!(#t)), i.to_token_stream());
+                        } else {
+                            symbols.insert(
+                                format!("impl_{}", i.self_ty.to_token_stream()),
+                                i.to_token_stream(),
+                            );
                         }
                     }
                     _ => {}
