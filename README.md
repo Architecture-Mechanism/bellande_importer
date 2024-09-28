@@ -4,7 +4,7 @@
 
 ## 
 ```
-use bellande_rust_importer::{Importer, import, from_import};
+use bellande_rust_import::{Importer, import, from_import};
 use std::path::PathBuf;
 
 fn main() {
